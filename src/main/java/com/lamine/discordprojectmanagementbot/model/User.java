@@ -1,22 +1,21 @@
-package com.lamine.model;
+package com.lamine.discordprojectmanagementbot.model;
 
-import org.bson.types.ObjectId;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Id;
+import java.util.List;
+
+@Document
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class User {
-    String uid;
-
-    public User(String uid) {
-        this.uid = uid;
-    }
-
-    public User() {
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
+    @Id
+    private String id;
+    private List<String> guildsId;
 }

@@ -1,49 +1,22 @@
-package com.lamine.model;
+package com.lamine.discordprojectmanagementbot.model;
 
-import org.bson.types.ObjectId;
+import lombok.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+import javax.persistence.Id;
 
+@Document
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Builder
 public class Task {
+    @Id
+    private String id;
+    private String userId;
+    private String projectId;
     private String name, description;
-    private ObjectId user;
-
-    public Task(String name, String description, ObjectId user) {
-        this.name = name;
-        this.description = description;
-        this.user = user;
-    }
-
-    public Task(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
-    public Task() {
-
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public ObjectId getUser() {
-        return user;
-    }
-
-    public void setUser(ObjectId user) {
-        this.user = user;
-    }
+    @Builder.Default
+    private Boolean isCompleted = false;
 }
