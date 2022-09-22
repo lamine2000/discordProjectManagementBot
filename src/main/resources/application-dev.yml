@@ -1,0 +1,7 @@
+spring:
+  data:
+    mongodb:
+      uri: "mongodb://discordbot:pass@localhost:27017/?retryWrites=true&w=majority"
+      database: "projectManagementBot"
+server:
+  port: 8081
