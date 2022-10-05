@@ -1,0 +1,24 @@
+version: "1.0"
+services:
+  mongodb:
+    image: mongo:4.4.9
+    volumes:
+      - ~/volumes/jhipster/discordProjectManagementBot/mongodb/:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=discordbot
+      - MONGO_INITDB_ROOT_PASSWORD=verycomplexpassword
+      - MONGO_INITDB_DATABASE=discordbot
+    # If you want to expose these ports outside your dev PC,
+    # remove the "127.0.0.1:" prefix
+    ports:
+      - 127.0.0.1:27017:27017
+  bot:
+    image: lamine2000/project-management-discord-bot:latest
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://discordbot:verycomplexpassword@mongodb:27017/discordbot
+      - SPRING_DATA_MONGODB_DATABASE=discordbot
+      - SPRING_DATA_MONGODB_USERNAME=discordbot
+      - SPRING_DATA_MONGODB_PASSWORD=verycomplexpassword
+      - SPRING_PROFILES_ACTIVE=prod
+    ports:
+        - 127.0.0.1:2000:2000
