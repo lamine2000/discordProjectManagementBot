@@ -3,6 +3,7 @@ package com.lamine.discordprojectmanagementbot.commands;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import org.jetbrains.annotations.NotNull;
@@ -15,9 +16,14 @@ public class CommandManager extends ListenerAdapter {
     public void onGuildReady(@NotNull GuildReadyEvent event) {
         List<CommandData> commandsData = new ArrayList<>();
 
-        //register all commands here
+        /*register all commands here*/
         //ping command
         commandsData.add(Commands.slash("ping", "Ping the bot"));
+
+        //create project command
+        commandsData.add(Commands.slash("createproject", "Create a project")
+                .addOption(OptionType.STRING, "projectName", "The name of the project", true)
+                .addOption(OptionType.STRING, "projectDescription", "The description of the project", true));
 
         //update commands
         event.getGuild().updateCommands().addCommands(commandsData).queue();
@@ -31,15 +37,16 @@ public class CommandManager extends ListenerAdapter {
             return;
         }
 
+        event.reply(event.getName()).queue();
          //switch case
-        switch(event.getName()){
+        switch(event.getName().toLowerCase()){
             case "ping":
                 PingCommand.execute(event);
                 break;
-            /*case "create":
-                new CreateCommand.execute(event);
+            case "createproject": //TODO: not working
+                CreateProjectCommand.execute(event);
                 break;
-            case "delete":
+            /*case "delete":
                 new DeleteCommand.execute(event);
                 break;
             case "list":

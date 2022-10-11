@@ -18,4 +18,11 @@ public class Project {
     private String name, description;
     @Builder.Default
     private Boolean isCompleted = false;
+
+    public Project(String guildId, String name, String description, Boolean isCompleted) {
+        this.guildId = guildId;
+        this.name = name;
+        this.description = description;
+        this.isCompleted = isCompleted;
+    }
 }
