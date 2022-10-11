@@ -3,15 +3,21 @@ package com.lamine.discordprojectmanagementbot.commands;
 import com.lamine.discordprojectmanagementbot.model.Project;
 import com.lamine.discordprojectmanagementbot.service.ProjectService;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
-
+@Component
 public class CreateProjectCommand {
 
-    static ProjectService projectService;
+    final ProjectService projectService;
 
-    public static void execute(SlashCommandInteractionEvent event) {
-        final String projectName = event.getOption("projectName").getAsString();
-        final String projectDescription = event.getOption("projectDescription").getAsString();
+    public CreateProjectCommand(ProjectService projectService) {
+        this.projectService = projectService;
+    }
+
+    public void execute(SlashCommandInteractionEvent event) {
+        final String projectName = event.getOption("name").getAsString();
+        final String projectDescription = event.getOption("description").getAsString();
         final String guildId = event.getGuild().getId();
 
         event
