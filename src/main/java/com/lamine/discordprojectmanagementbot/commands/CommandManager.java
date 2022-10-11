@@ -7,11 +7,19 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Controller
 public class CommandManager extends ListenerAdapter {
+    private final CreateProjectCommand createProjectCommand;
+
+    public CommandManager(CreateProjectCommand createProjectCommand) {
+        this.createProjectCommand = createProjectCommand;
+    }
+
     @Override
     public void onGuildReady(@NotNull GuildReadyEvent event) {
         List<CommandData> commandsData = new ArrayList<>();
@@ -22,8 +30,8 @@ public class CommandManager extends ListenerAdapter {
 
         //create project command
         commandsData.add(Commands.slash("createproject", "Create a project")
-                .addOption(OptionType.STRING, "projectName", "The name of the project", true)
-                .addOption(OptionType.STRING, "projectDescription", "The description of the project", true));
+                .addOption(OptionType.STRING, "name", "The name of the project", true)
+                .addOption(OptionType.STRING, "description", "The description of the project", true));
 
         //update commands
         event.getGuild().updateCommands().addCommands(commandsData).queue();
@@ -36,15 +44,13 @@ public class CommandManager extends ListenerAdapter {
             event.reply("This bot only works in guilds.").queue();
             return;
         }
-
-        event.reply(event.getName()).queue();
          //switch case
         switch(event.getName().toLowerCase()){
             case "ping":
                 PingCommand.execute(event);
                 break;
-            case "createproject": //TODO: not working
-                CreateProjectCommand.execute(event);
+            case "createawesomeproject": //TODO: not working
+                createProjectCommand.execute(event);
                 break;
             /*case "delete":
                 new DeleteCommand.execute(event);
