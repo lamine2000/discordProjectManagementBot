@@ -15,7 +15,6 @@ import java.util.List;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 public class DiscordProjectManagementBotApplication {
-
     private static Dotenv config;
     public static void main(String[] args) throws LoginException {
         SpringApplication.run(DiscordProjectManagementBotApplication.class, args);
@@ -25,22 +24,7 @@ public class DiscordProjectManagementBotApplication {
         config = Dotenv.configure().load();
         final String token = config.get("TOKEN");
         */
-        final String token = System.getenv("TOKEN");
-        final List<GatewayIntent> intents = List.of(GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES);
-        JDABuilder
-                .create(token, intents)
-                .disableCache(List.of(
-                        CacheFlag.ACTIVITY,
-                        CacheFlag.VOICE_STATE,
-                        CacheFlag.EMOJI,
-                        CacheFlag.STICKER,
-                        CacheFlag.CLIENT_STATUS,
-                        CacheFlag.ONLINE_STATUS
-                ))
-                .addEventListeners(new CommandManager())
-                .setActivity(Activity.listening("your commands ;)"))
-                .build();
-                //TODO: créer un fichier pour chaque commande
+        //final String token = System.getenv("TOKEN");
     }
 
     public static Dotenv getConfig() {
