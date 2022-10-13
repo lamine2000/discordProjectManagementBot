@@ -15,9 +15,10 @@ import java.util.List;
 @Controller
 public class CommandManager extends ListenerAdapter {
     private final CreateProjectCommand createProjectCommand;
-
-    public CommandManager(CreateProjectCommand createProjectCommand) {
+    private final AddTaskCommand addTaskCommand;
+    public CommandManager(CreateProjectCommand createProjectCommand, AddTaskCommand addTaskCommand) {
         this.createProjectCommand = createProjectCommand;
+        this.addTaskCommand = addTaskCommand;
     }
 
     @Override
@@ -32,6 +33,12 @@ public class CommandManager extends ListenerAdapter {
         commandsData.add(Commands.slash("createproject", "Create a project")
                 .addOption(OptionType.STRING, "name", "The name of the project", true)
                 .addOption(OptionType.STRING, "description", "The description of the project", true));
+
+        //add task command
+        commandsData.add(Commands.slash("addtask", "Add a task to a project")
+                .addOption(OptionType.STRING, "name", "The name of the task", true)
+                .addOption(OptionType.STRING, "description", "The description of the task", true)
+                .addOption(OptionType.STRING, "project", "The name of the project", true));
 
         //update commands
         event.getGuild().updateCommands().addCommands(commandsData).queue();
@@ -49,8 +56,11 @@ public class CommandManager extends ListenerAdapter {
             case "ping":
                 PingCommand.execute(event);
                 break;
-            case "createawesomeproject": //TODO: not working
+            case "createproject":
                 createProjectCommand.execute(event);
+                break;
+            case "addtask":
+                addTaskCommand.execute(event);
                 break;
             /*case "delete":
                 new DeleteCommand.execute(event);

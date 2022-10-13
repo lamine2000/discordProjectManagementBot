@@ -19,4 +19,7 @@ public class Task {
     private String name, description;
     @Builder.Default
     private Boolean isCompleted = false;
+
+    public Task(String guildId, String projectId, String taskName, String taskDescription, boolean b) {
+    }
 }
