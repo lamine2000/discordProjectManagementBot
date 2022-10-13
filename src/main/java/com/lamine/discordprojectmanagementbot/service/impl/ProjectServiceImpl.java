@@ -17,4 +17,16 @@ public class ProjectServiceImpl implements ProjectService {
     public Project saveProject(Project project) {
         return projectRepository.save(project);
     }
+
+    @Override
+    public Project findProjectById(String id) {
+        return projectRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Project findProjectByName(String name) {
+        return projectRepository.findByName(name).orElse(null);
+    }
+
+
 }

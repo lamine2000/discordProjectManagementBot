@@ -6,4 +6,8 @@ public interface ProjectService {
 
     //function to create a project
     Project saveProject(Project project);
+
+    Project findProjectById(String id);
+
+    Project findProjectByName(String name);
 }
