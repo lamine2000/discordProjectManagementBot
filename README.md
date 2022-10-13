@@ -24,8 +24,8 @@ TODO:
 - [x] Containerize the bot and its database
 - [ ] Generate logs messages
 - [x] Implement ping command
-- [ ] Implement command to create a new project (and reverse)
-- [ ] Implement command to create a new task (and reverse)
+- [x] Implement command to create a new project (and reverse)
+- [x] Implement command to create a new task (and reverse)
 - [ ] Implement command to assign a task to a user (and reverse)
 - [ ] Implement command to change the state of a task (and reverse)
 - [ ] Implement command to get an overview of the tasks completion state (and reverse)
