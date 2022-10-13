@@ -4,7 +4,6 @@ import com.lamine.discordprojectmanagementbot.model.Project;
 import com.lamine.discordprojectmanagementbot.service.ProjectService;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 @Component
 public class CreateProjectCommand {
