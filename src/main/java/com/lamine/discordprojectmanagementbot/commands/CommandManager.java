@@ -23,6 +23,9 @@ public class CommandManager extends ListenerAdapter {
 
     @Override
     public void onGuildReady(@NotNull GuildReadyEvent event) {
+        //delete all commands
+        event.getJDA().updateCommands().queue();
+
         List<CommandData> commandsData = new ArrayList<>();
 
         /*register all commands here*/
