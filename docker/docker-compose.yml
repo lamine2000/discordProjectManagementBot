@@ -7,7 +7,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=discordbot
       - MONGO_INITDB_ROOT_PASSWORD=verycomplexpassword
-      - MONGO_INITDB_DATABASE=discordbot
+      - MONGO_INITDB_DATABASE=projectManagementBot
     # If you want to expose these ports outside your dev PC,
     # remove the "127.0.0.1:" prefix
     ports:
@@ -15,10 +15,8 @@ services:
   bot:
     image: lamine2000/project-management-discord-bot:latest
     environment:
-      - SPRING_DATA_MONGODB_URI=mongodb://discordbot:verycomplexpassword@mongodb:27017/discordbot
-      - SPRING_DATA_MONGODB_DATABASE=discordbot
-      - SPRING_DATA_MONGODB_USERNAME=discordbot
-      - SPRING_DATA_MONGODB_PASSWORD=verycomplexpassword
-      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATA_MONGODB_URI=mongodb://discordbot:verycomplexpassword@mongodb:27017/?retryWrites=true&w=majority
+      - SPRING_DATA_MONGODB_DATABASE=projectManagementBot
+      - SPRING_PROFILES_ACTIVE=docker
     ports:
         - 127.0.0.1:2000:2000
