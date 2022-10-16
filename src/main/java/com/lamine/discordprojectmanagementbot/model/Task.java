@@ -21,5 +21,10 @@ public class Task {
     private Boolean isCompleted = false;
 
     public Task(String guildId, String projectId, String taskName, String taskDescription, boolean b) {
+        this.userId = guildId;
+        this.projectId = projectId;
+        this.name = taskName;
+        this.description = taskDescription;
+        this.isCompleted = b;
     }
 }
