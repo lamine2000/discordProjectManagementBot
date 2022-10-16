@@ -5,6 +5,8 @@ import com.lamine.discordprojectmanagementbot.repository.ProjectRepository;
 import com.lamine.discordprojectmanagementbot.service.ProjectService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProjectServiceImpl implements ProjectService {
     private final ProjectRepository projectRepository;
@@ -26,6 +28,11 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public Project findProjectByName(String name) {
         return projectRepository.findByName(name).orElse(null);
+    }
+
+    @Override
+    public List<Project> findAll() {
+        return projectRepository.findAll();
     }
 
 
