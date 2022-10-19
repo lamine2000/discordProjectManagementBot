@@ -22,8 +22,11 @@ public class InitBot implements ApplicationListener<ApplicationReadyEvent> {
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
-        final String token = "MTAxNDI3NjkxMzkzNTY4MzYyNQ.GAiAl3.i_zPX7G1uwi0SgEUpbEtbBXM-DqMT1K5MrFBZ4";
-        final List<GatewayIntent> intents = List.of(GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES);
+        final String token = "<token here>";
+        final List<GatewayIntent> intents = List.of(
+                GatewayIntent.GUILD_MESSAGES,
+                GatewayIntent.DIRECT_MESSAGES,
+                GatewayIntent.MESSAGE_CONTENT);
         try {
             JDABuilder
                     .create(token, intents)
