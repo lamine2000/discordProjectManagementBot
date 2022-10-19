@@ -15,7 +15,7 @@ services:
   bot:
     image: lamine2000/project-management-discord-bot:latest
     environment:
-      - SPRING_DATA_MONGODB_URI=mongodb://discordbot:verycomplexpassword@mongodb:27017/?retryWrites=true&w=majority
+      - SPRING_DATA_MONGODB_URI=mongodb://discordbot:verycomplexpassword@mongodb:27017
       - SPRING_DATA_MONGODB_DATABASE=projectManagementBot
       - SPRING_PROFILES_ACTIVE=docker
     ports:
