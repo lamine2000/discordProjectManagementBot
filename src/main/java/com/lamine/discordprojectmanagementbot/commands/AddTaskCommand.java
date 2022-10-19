@@ -4,7 +4,11 @@ import com.lamine.discordprojectmanagementbot.model.Task;
 import com.lamine.discordprojectmanagementbot.service.ProjectService;
 import com.lamine.discordprojectmanagementbot.service.TaskService;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.Command;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class AddTaskCommand {
@@ -14,6 +18,12 @@ public class AddTaskCommand {
     public AddTaskCommand(TaskService taskService, ProjectService projectService) {
         this.taskService = taskService;
         this.projectService = projectService;
+    }
+
+    public List<Command.Choice> getProjectChoices() {
+        return this.projectService.findAll().stream()
+                .map(project -> new Command.Choice(project.getName(), project.getName()))
+                .collect(Collectors.toList());
     }
 
     public void execute(SlashCommandInteractionEvent event) {
@@ -26,8 +36,7 @@ public class AddTaskCommand {
                 .getId();
 
         event
-                .getChannel()
-                .sendMessage(String.format("Adding task %s to project %s...", taskName, projectName))
+                .reply(String.format("Adding task %s to project %s...", taskName, projectName))
                 .queue(
                         response -> {
                             taskService.saveTask(
@@ -40,7 +49,7 @@ public class AddTaskCommand {
                                     )
                             );
 
-                            response.editMessageFormat("Task %s added to project %s successfully", taskName, projectName).queue();
+                            response.editOriginal(String.format("Task %s added successfully to project %s", taskName, projectName)).queue();
                         }
                 );
     }
