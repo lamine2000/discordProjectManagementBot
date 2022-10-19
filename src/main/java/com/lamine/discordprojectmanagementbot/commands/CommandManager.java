@@ -4,7 +4,6 @@ import com.lamine.discordprojectmanagementbot.service.ProjectService;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
@@ -13,25 +12,21 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class CommandManager extends ListenerAdapter {
     private final CreateProjectCommand createProjectCommand;
     private final AddTaskCommand addTaskCommand;
-    private final ProjectService projectService;
     public CommandManager(CreateProjectCommand createProjectCommand, AddTaskCommand addTaskCommand, ProjectService projectService) {
         this.createProjectCommand = createProjectCommand;
         this.addTaskCommand = addTaskCommand;
-        this.projectService = projectService;
     }
 
     @Override
     public void onGuildReady(@NotNull GuildReadyEvent event) {
         //delete all commands
-        event.getJDA().updateCommands().queue();
+        //event.getJDA().updateCommands().queue();
 
         List<CommandData> commandsData = new ArrayList<>();
 
@@ -45,15 +40,11 @@ public class CommandManager extends ListenerAdapter {
                 .addOption(OptionType.STRING, "description", "The description of the project", true));
 
         //add task command
-        List<Command.Choice> projectChoices =  projectService.findAll().stream()
-                .map(project -> new Command.Choice(project.getName(), project.getName()))
-                .collect(Collectors.toList());
-
         commandsData.add(Commands.slash("addtask", "Add a task to a project")
                 .addOption(OptionType.STRING, "name", "The name of the task", true)
                 .addOption(OptionType.STRING, "description", "The description of the task", true)
                 .addOptions(new OptionData(OptionType.STRING, "project", "The name of the project", true)
-                        .addChoices(projectChoices)));
+                        .addChoices(addTaskCommand.getProjectChoices()))); //these choices are dynamic and will be updated when a new project is created
         //update commands
         event.getGuild().updateCommands().addCommands(commandsData).queue();
     }
