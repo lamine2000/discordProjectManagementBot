@@ -22,7 +22,7 @@ Technologies used:
 
 TODO:
 - [x] Containerize the bot and its database
-- [ ] Generate logs messages
+- [ ] Generate log messages
 - [x] Implement ping command
 - [x] Implement command to create a new project (and reverse)
 - [x] Implement command to create a new task (and reverse)

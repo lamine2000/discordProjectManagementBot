@@ -14,11 +14,6 @@ public class DiscordProjectManagementBotApplication {
         SpringApplication.run(DiscordProjectManagementBotApplication.class, args);
         // We only need 2 intents in this bot. We only respond to messages in guilds and private channels.
         // All other events will be disabled.
-        /*
-        config = Dotenv.configure().load();
-        final String token = config.get("TOKEN");
-        */
-        //final String token = System.getenv("TOKEN");
     }
 
     public static Dotenv getConfig() {

@@ -1,6 +1,7 @@
 package com.lamine.discordprojectmanagementbot.init;
 
 import com.lamine.discordprojectmanagementbot.commands.CommandManager;
+import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -22,7 +23,11 @@ public class InitBot implements ApplicationListener<ApplicationReadyEvent> {
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
-        final String token = "<token here>";
+        final String token = Dotenv
+                .configure()
+                .load()
+                .get("TOKEN");
+
         final List<GatewayIntent> intents = List.of(
                 GatewayIntent.GUILD_MESSAGES,
                 GatewayIntent.DIRECT_MESSAGES,

@@ -20,11 +20,11 @@ public class Task {
     @Builder.Default
     private Boolean isCompleted = false;
 
-    public Task(String guildId, String projectId, String taskName, String taskDescription, boolean b) {
+    public Task(String guildId, String projectId, String taskName, String taskDescription, boolean isCompleted) {
         this.userId = guildId;
         this.projectId = projectId;
         this.name = taskName;
         this.description = taskDescription;
-        this.isCompleted = b;
+        this.isCompleted = isCompleted;
     }
 }

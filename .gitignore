@@ -32,4 +32,5 @@ build/
 .vscode/
 
 ### custom ###
-.env
+/src/main/resources/.env
+/docker

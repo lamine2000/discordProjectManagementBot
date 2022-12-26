@@ -1,6 +1,5 @@
 package com.lamine.discordprojectmanagementbot.commands;
 
-import com.lamine.discordprojectmanagementbot.service.ProjectService;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -18,7 +17,7 @@ import java.util.List;
 public class CommandManager extends ListenerAdapter {
     private final CreateProjectCommand createProjectCommand;
     private final AddTaskCommand addTaskCommand;
-    public CommandManager(CreateProjectCommand createProjectCommand, AddTaskCommand addTaskCommand, ProjectService projectService) {
+    public CommandManager(CreateProjectCommand createProjectCommand, AddTaskCommand addTaskCommand) {
         this.createProjectCommand = createProjectCommand;
         this.addTaskCommand = addTaskCommand;
     }
@@ -56,7 +55,13 @@ public class CommandManager extends ListenerAdapter {
             event.reply("This bot only works in guilds.").queue();
             return;
         }
-         //switch case
+
+        invokeCommand(event);
+    }
+
+
+    //call the appropriate command
+    private void invokeCommand(SlashCommandInteractionEvent event) {
         switch(event.getName().toLowerCase()){
             case "ping":
                 PingCommand.execute(event);
@@ -91,9 +96,6 @@ public class CommandManager extends ListenerAdapter {
             case "invite":
                 new InviteCommand.execute(event);
                 break;
-            case "ping":
-                new PingCommand.execute(event);
-                break;
             case "about":
                 new AboutCommand.execute(event);
                 break;*/
@@ -101,6 +103,7 @@ public class CommandManager extends ListenerAdapter {
                 event.reply("Are you sure this is not a typo ?").setEphemeral(true).queue();
         }
     }
+
 }
 
 

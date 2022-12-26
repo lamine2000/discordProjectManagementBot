@@ -6,6 +6,7 @@ import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class PingCommand {
+
     public static void execute(SlashCommandInteractionEvent event) {
         event.reply("Pong !").queue(response -> {
             long ping = event.getTimeCreated().until(OffsetDateTime.now(), ChronoUnit.MILLIS);
