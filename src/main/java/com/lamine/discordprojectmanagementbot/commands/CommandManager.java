@@ -17,9 +17,13 @@ import java.util.List;
 public class CommandManager extends ListenerAdapter {
     private final CreateProjectCommand createProjectCommand;
     private final AddTaskCommand addTaskCommand;
-    public CommandManager(CreateProjectCommand createProjectCommand, AddTaskCommand addTaskCommand) {
+    private final MarkTaskAsDoneCommand markTaskAsDoneCommand;
+    public CommandManager(CreateProjectCommand createProjectCommand,
+                          AddTaskCommand addTaskCommand,
+                          MarkTaskAsDoneCommand markTaskAsDoneCommand){
         this.createProjectCommand = createProjectCommand;
         this.addTaskCommand = addTaskCommand;
+        this.markTaskAsDoneCommand = markTaskAsDoneCommand;
     }
 
     @Override
@@ -44,6 +48,13 @@ public class CommandManager extends ListenerAdapter {
                 .addOption(OptionType.STRING, "description", "The description of the task", true)
                 .addOptions(new OptionData(OptionType.STRING, "project", "The name of the project", true)
                         .addChoices(addTaskCommand.getProjectChoices()))); //these choices are dynamic and will be updated when a new project is created
+
+        //mark task as done command
+        commandsData.add(Commands.slash("marktaskasdone", "Mark a task as done")
+                .addOptions(new OptionData(OptionType.STRING, "task", "The name of the task", true)
+                        .addChoices(markTaskAsDoneCommand.getAllTasks())));//these choices are dynamic and will be updated when a new project is created
+
+
         //update commands
         event.getGuild().updateCommands().addCommands(commandsData).queue();
     }
